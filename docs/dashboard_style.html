@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SponsorReel Operator Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1e6d8a",
+                        "accent": "#f97316",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#121c20",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a262b",
+                        "text-main-light": "#0f171a",
+                        "text-main-dark": "#eef2f4",
+                        "text-sub-light": "#558191",
+                        "text-sub-dark": "#9ab0b8",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark transition-colors duration-200">
+<div class="flex h-screen w-full overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 bg-surface-light dark:bg-surface-dark border-r border-gray-200 dark:border-gray-800 flex flex-col justify-between hidden md:flex shrink-0 z-20 transition-colors duration-200">
+<div class="flex flex-col h-full">
+<!-- Brand -->
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 rounded-xl bg-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-white text-2xl">movie_filter</span>
+</div>
+<div>
+<h1 class="text-lg font-bold leading-tight text-primary dark:text-white">SponsorReel</h1>
+<p class="text-xs text-text-sub-light dark:text-text-sub-dark font-medium">Operator Console</p>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex-1 overflow-y-auto px-4 py-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary dark:text-white dark:bg-primary/20 group transition-colors" href="#">
+<span class="material-symbols-outlined filled">dashboard</span>
+<span class="text-sm font-semibold">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-sub-light dark:text-text-sub-dark hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary dark:hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-sm font-medium">Events</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-sub-light dark:text-text-sub-dark hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary dark:hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">handshake</span>
+<span class="text-sm font-medium">Sponsors</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-sub-light dark:text-text-sub-dark hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary dark:hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-medium">Payments</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-sub-light dark:text-text-sub-dark hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary dark:hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<!-- User Profile -->
+<div class="p-4 border-t border-gray-200 dark:border-gray-800">
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors">
+<div class="size-10 rounded-full bg-cover bg-center border border-gray-200 dark:border-gray-700" data-alt="User avatar profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCbk_qHOy_Q1oqquE-ciU3H7ozRPzQWmx34X69urUNfT0RAldgwuaw_C-M2qp9fYfmN7SUOlYlrB10Ew8cYHrm_nGPZesbqSDrFM9mEOPO4pKdYeZqIS9xxFhpCgt2Bh_Z0jGHgsm2JgWveRWbP56T77ytNiekQkhnzMxg3pH_J-SrDwz_gBgBLwYsz-stwA3xeJjeJUBbnRSCEDw7KHBiUAQA3Y5R_Sco_e2gjRa3bn5oP68661MTYBlGpIX6DG_8sfUX1J7eQuB44");'></div>
+<div class="flex flex-col overflow-hidden">
+<p class="text-sm font-bold truncate">Cinema Paradiso</p>
+<p class="text-xs text-text-sub-light dark:text-text-sub-dark truncate">Pro Account</p>
+</div>
+<span class="material-symbols-outlined ml-auto text-gray-400 text-lg">expand_more</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 h-full overflow-y-auto bg-background-light dark:bg-background-dark relative">
+<!-- Mobile Header Placeholder -->
+<div class="md:hidden flex items-center justify-between p-4 bg-surface-light dark:bg-surface-dark border-b border-gray-200 dark:border-gray-800">
+<div class="flex items-center gap-2 text-primary font-bold">
+<span class="material-symbols-outlined">movie_filter</span> SponsorReel
+                </div>
+<button class="text-gray-500">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<div class="max-w-7xl mx-auto p-4 md:p-8 space-y-8">
+<!-- Page Heading -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="space-y-1">
+<h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-text-main-light dark:text-text-main-dark">
+                            Good afternoon, <span class="text-primary">Cinema Paradiso</span>
+</h1>
+<p class="text-text-sub-light dark:text-text-sub-dark font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+                            Today is October 24, 2023
+                        </p>
+</div>
+<!-- Notification Bell -->
+<button class="hidden md:flex relative p-2 text-text-sub-light hover:bg-gray-100 dark:text-text-sub-dark dark:hover:bg-surface-dark rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-accent rounded-full border-2 border-background-light dark:border-background-dark"></span>
+</button>
+</header>
+<!-- Stats Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Stat Card 1 -->
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col gap-2 relative overflow-hidden group">
+<div class="absolute right-0 top-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">monitoring</span>
+</div>
+<p class="text-text-sub-light dark:text-text-sub-dark font-medium">Revenue YTD</p>
+<div class="flex items-baseline gap-2">
+<h2 class="text-3xl font-bold text-text-main-light dark:text-text-main-dark">$12,450</h2>
+<span class="text-sm font-semibold text-green-600 bg-green-100 dark:bg-green-900/30 dark:text-green-400 px-2 py-0.5 rounded-full">+12%</span>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col gap-2 relative overflow-hidden group">
+<div class="absolute right-0 top-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">confirmation_number</span>
+</div>
+<p class="text-text-sub-light dark:text-text-sub-dark font-medium">Active Events</p>
+<div class="flex items-baseline gap-2">
+<h2 class="text-3xl font-bold text-text-main-light dark:text-text-main-dark">4</h2>
+<span class="text-sm font-semibold text-green-600 bg-green-100 dark:bg-green-900/30 dark:text-green-400 px-2 py-0.5 rounded-full">+1</span>
+</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col gap-2 relative overflow-hidden group">
+<div class="absolute right-0 top-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">pending_actions</span>
+</div>
+<p class="text-text-sub-light dark:text-text-sub-dark font-medium">Pending Requests</p>
+<div class="flex items-baseline gap-2">
+<h2 class="text-3xl font-bold text-text-main-light dark:text-text-main-dark">8</h2>
+<span class="text-sm font-semibold text-accent bg-orange-100 dark:bg-orange-900/30 dark:text-orange-400 px-2 py-0.5 rounded-full">+3</span>
+</div>
+</div>
+</section>
+<!-- Dashboard Content Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Chart & Table (66%) -->
+<div class="lg:col-span-2 space-y-8">
+<!-- Upcoming Events Section -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden">
+<div class="p-6 border-b border-gray-200 dark:border-gray-800 flex flex-wrap items-center justify-between gap-4">
+<div>
+<h3 class="text-lg font-bold text-text-main-light dark:text-text-main-dark">Upcoming Events</h3>
+<p class="text-sm text-text-sub-light dark:text-text-sub-dark">Manage your next screenings</p>
+</div>
+<button class="text-sm font-semibold text-primary hover:text-primary/80 transition-colors flex items-center gap-1">
+                                    View Calendar <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-gray-50/50 dark:bg-gray-800/30 text-xs uppercase text-text-sub-light dark:text-text-sub-dark font-semibold tracking-wider">
+<th class="px-6 py-4">Event Name</th>
+<th class="px-6 py-4">Date</th>
+<th class="px-6 py-4">Venue</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-gray-200 dark:bg-gray-700 bg-cover bg-center" data-alt="Movie poster thumbnail" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD9b2yy66nZuSdb6nO_XfhwPRekZQhRZsbqan0AXNE1xYpzbJVzb7XHfPQimjpHy1kibUNS-P6nTbfkYnR-h6hpJvCDce6Zxan8d4wssRlvRxRjPUWuAJH0aby9ty3dA4fMVcPjcfWp_9qY7Tso-zvx0Ctbs2LtqS9EDBcrFsBxfsJ3nBIZFg7T-wu614NAcdaddDN2iqGbWWH4YRCSaD4GWF6W55A-gdeaz_wdHijoMgfaq_PsHzUDt-sTHjUmb4YQ_lVzC090OozF");'></div>
+<span class="font-semibold text-text-main-light dark:text-text-main-dark">Summer Blockbuster Night</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-medium text-text-sub-light dark:text-text-sub-dark">Oct 28, 2023</td>
+<td class="px-6 py-4 text-sm text-text-sub-light dark:text-text-sub-dark">Central Park</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400">
+<span class="size-1.5 rounded-full bg-green-500"></span>
+                                                    Fully Funded
+                                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-gray-400 hover:text-primary dark:hover:text-white">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-gray-200 dark:bg-gray-700 bg-cover bg-center" data-alt="Indie film graphic" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDa5qnuhJISLJapOyJFjUqZZJt5oB61Gw5P1-WN7n5PrNGmWbVwK6ajJ-VlVuc9KMonh4vRAGKpWfvuIK9HjGvCDfJ-FQ13EJh0vIjlWYF44bjen_pBmxcU9RvHoi3Sw9PLa2jUWzlOkYuzEIg2vVtyxT7xXCib-PzcJZdpdxOVyBIava2rvIVOSpv1qYM4-nQdaoS746w4lr-5j3PU7mFFZ1GC1v_o6YU4xKLMwCcLreYoz-tocDFjU4dSPwoo5gcU7yAq_XsFaIuK");'></div>
+<span class="font-semibold text-text-main-light dark:text-text-main-dark">Indie Film Showcase</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-medium text-text-sub-light dark:text-text-sub-dark">Nov 02, 2023</td>
+<td class="px-6 py-4 text-sm text-text-sub-light dark:text-text-sub-dark">Warehouse 42</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-500">
+<span class="size-1.5 rounded-full bg-yellow-500"></span>
+                                                    Pending
+                                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-gray-400 hover:text-primary dark:hover:text-white">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-gray-200 dark:bg-gray-700 bg-cover bg-center" data-alt="Classic car icon" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBslHa9fsP-_rTfw-_1GS4Cw04b19CombsSQ0Xzbygy2ceUHFaVuE5sGOcQyR-QLEYPFWRTKhKNriZFhuyr2LDBH6xEUrn4-evUI7cgo5uEqYdfGmTErL8sEmPRul5gDZkRY4nXP100RZ6bAOXzyKY0uInrc-0-gd12H10aKysXHH4TCdMNejhvMikPaTMQS7mvK_hHuyiNypPp6k_2fw3zYLy-4f7mq6k1CNU2Hrr_e0ChDd13nmtXsSQyDNHAiKqillLhiQAAT_hs");'></div>
+<span class="font-semibold text-text-main-light dark:text-text-main-dark">Classic Drive-In</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-medium text-text-sub-light dark:text-text-sub-dark">Nov 15, 2023</td>
+<td class="px-6 py-4 text-sm text-text-sub-light dark:text-text-sub-dark">Fairgrounds</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600 dark:bg-gray-700/50 dark:text-gray-400">
+<span class="size-1.5 rounded-full bg-gray-500"></span>
+                                                    Draft
+                                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-gray-400 hover:text-primary dark:hover:text-white">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-gray-50 dark:bg-gray-800/20 text-center">
+<button class="text-sm font-semibold text-primary hover:underline">View All Events</button>
+</div>
+</div>
+<!-- Revenue Chart Simulation -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6">
+<div class="flex justify-between items-end mb-6">
+<div>
+<h3 class="text-lg font-bold text-text-main-light dark:text-text-main-dark">Sponsorship Revenue</h3>
+<p class="text-sm text-text-sub-light dark:text-text-sub-dark">Last 6 Months</p>
+</div>
+<div class="text-right">
+<p class="text-2xl font-bold text-primary">$42,850</p>
+<p class="text-xs text-green-600 font-medium">+8.2% vs last period</p>
+</div>
+</div>
+<!-- Simple CSS Bar Chart -->
+<div class="w-full h-48 flex items-end justify-between gap-2 sm:gap-4">
+<!-- May -->
+<div class="group flex flex-col items-center flex-1 h-full justify-end gap-2">
+<div class="w-full max-w-[40px] bg-primary/20 dark:bg-primary/10 rounded-t-sm h-[40%] relative group-hover:bg-primary/30 transition-all"></div>
+<span class="text-xs text-text-sub-light dark:text-text-sub-dark font-medium">May</span>
+</div>
+<!-- Jun -->
+<div class="group flex flex-col items-center flex-1 h-full justify-end gap-2">
+<div class="w-full max-w-[40px] bg-primary/20 dark:bg-primary/10 rounded-t-sm h-[55%] relative group-hover:bg-primary/30 transition-all"></div>
+<span class="text-xs text-text-sub-light dark:text-text-sub-dark font-medium">Jun</span>
+</div>
+<!-- Jul -->
+<div class="group flex flex-col items-center flex-1 h-full justify-end gap-2">
+<div class="w-full max-w-[40px] bg-primary/40 dark:bg-primary/30 rounded-t-sm h-[75%] relative group-hover:bg-primary/50 transition-all"></div>
+<span class="text-xs text-text-sub-light dark:text-text-sub-dark font-medium">Jul</span>
+</div>
+<!-- Aug -->
+<div class="group flex flex-col items-center flex-1 h-full justify-end gap-2">
+<div class="w-full max-w-[40px] bg-primary dark:bg-primary rounded-t-sm h-[95%] relative group-hover:opacity-90 transition-all shadow-lg shadow-primary/20">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-dark text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">$14k</div>
+</div>
+<span class="text-xs font-bold text-primary dark:text-white">Aug</span>
+</div>
+<!-- Sep -->
+<div class="group flex flex-col items-center flex-1 h-full justify-end gap-2">
+<div class="w-full max-w-[40px] bg-primary/40 dark:bg-primary/30 rounded-t-sm h-[65%] relative group-hover:bg-primary/50 transition-all"></div>
+<span class="text-xs text-text-sub-light dark:text-text-sub-dark font-medium">Sep</span>
+</div>
+<!-- Oct -->
+<div class="group flex flex-col items-center flex-1 h-full justify-end gap-2">
+<div class="w-full max-w-[40px] bg-primary/30 dark:bg-primary/20 rounded-t-sm h-[50%] relative group-hover:bg-primary/40 transition-all"></div>
+<span class="text-xs text-text-sub-light dark:text-text-sub-dark font-medium">Oct</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Actions & Feed (33%) -->
+<div class="lg:col-span-1 space-y-6">
+<!-- Quick Actions Card -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6">
+<h3 class="text-lg font-bold mb-4 text-text-main-light dark:text-text-main-dark">Quick Actions</h3>
+<div class="flex flex-col gap-3">
+<button class="flex w-full cursor-pointer items-center justify-center rounded-lg h-12 px-5 bg-primary hover:bg-primary/90 transition-colors text-white gap-2 text-base font-bold shadow-md shadow-primary/20">
+<span class="material-symbols-outlined">add</span>
+<span>Create New Event</span>
+</button>
+<button class="flex w-full cursor-pointer items-center justify-center rounded-lg h-12 px-5 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-text-main-light dark:text-text-main-dark transition-colors gap-2 text-base font-bold border border-transparent dark:border-gray-700">
+<span class="material-symbols-outlined">search</span>
+<span>Find Sponsors</span>
+</button>
+</div>
+</div>
+<!-- Recent Activity Feed -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden flex flex-col h-auto">
+<div class="p-6 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center">
+<h3 class="text-lg font-bold text-text-main-light dark:text-text-main-dark">Recent Activity</h3>
+<button class="text-gray-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">refresh</span>
+</button>
+</div>
+<div class="p-0">
+<ul class="divide-y divide-gray-100 dark:divide-gray-800">
+<!-- Activity Item 1 -->
+<li class="p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors flex gap-4 items-start">
+<div class="bg-blue-100 dark:bg-blue-900/30 text-primary p-2 rounded-full shrink-0 flex items-center justify-center size-10">
+<span class="material-symbols-outlined text-xl">description</span>
+</div>
+<div>
+<p class="text-sm text-text-main-light dark:text-text-main-dark">
+<span class="font-bold">Joe's Pizza</span> applied to sponsor <span class="font-medium text-primary">Summer Blockbuster Night</span>
+</p>
+<p class="text-xs text-text-sub-light dark:text-text-sub-dark mt-1">2 hours ago</p>
+</div>
+</li>
+<!-- Activity Item 2 -->
+<li class="p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors flex gap-4 items-start">
+<div class="bg-green-100 dark:bg-green-900/30 text-green-600 p-2 rounded-full shrink-0 flex items-center justify-center size-10">
+<span class="material-symbols-outlined text-xl">payments</span>
+</div>
+<div>
+<p class="text-sm text-text-main-light dark:text-text-main-dark">
+                                                Payment received from <span class="font-bold">TechCorp</span>
+</p>
+<p class="text-xs text-text-sub-light dark:text-text-sub-dark mt-1">Yesterday</p>
+</div>
+</li>
+<!-- Activity Item 3 -->
+<li class="p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors flex gap-4 items-start">
+<div class="bg-orange-100 dark:bg-orange-900/30 text-accent p-2 rounded-full shrink-0 flex items-center justify-center size-10">
+<span class="material-symbols-outlined text-xl">mail</span>
+</div>
+<div>
+<p class="text-sm text-text-main-light dark:text-text-main-dark">
+                                                New message from <span class="font-bold">Local Bakery Co.</span> regarding branding assets.
+                                            </p>
+<p class="text-xs text-text-sub-light dark:text-text-sub-dark mt-1">2 days ago</p>
+</div>
+</li>
+<!-- Activity Item 4 -->
+<li class="p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors flex gap-4 items-start">
+<div class="bg-gray-100 dark:bg-gray-700 text-gray-500 p-2 rounded-full shrink-0 flex items-center justify-center size-10">
+<span class="material-symbols-outlined text-xl">edit</span>
+</div>
+<div>
+<p class="text-sm text-text-main-light dark:text-text-main-dark">
+                                                You updated the details for <span class="font-medium text-primary">Classic Drive-In</span>
+</p>
+<p class="text-xs text-text-sub-light dark:text-text-sub-dark mt-1">3 days ago</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="p-3 border-t border-gray-100 dark:border-gray-800 text-center">
+<button class="text-xs font-bold text-text-sub-light dark:text-text-sub-dark uppercase tracking-wide hover:text-primary transition-colors">View All Activity</button>
+</div>
+</div>
+<!-- Mini Calendar Visual -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6 hidden lg:block">
+<h3 class="text-lg font-bold mb-4 text-text-main-light dark:text-text-main-dark">October 2023</h3>
+<div class="grid grid-cols-7 gap-1 text-center text-sm">
+<div class="text-text-sub-light dark:text-text-sub-dark text-xs font-semibold py-2">M</div>
+<div class="text-text-sub-light dark:text-text-sub-dark text-xs font-semibold py-2">T</div>
+<div class="text-text-sub-light dark:text-text-sub-dark text-xs font-semibold py-2">W</div>
+<div class="text-text-sub-light dark:text-text-sub-dark text-xs font-semibold py-2">T</div>
+<div class="text-text-sub-light dark:text-text-sub-dark text-xs font-semibold py-2">F</div>
+<div class="text-text-sub-light dark:text-text-sub-dark text-xs font-semibold py-2">S</div>
+<div class="text-text-sub-light dark:text-text-sub-dark text-xs font-semibold py-2">S</div>
+<!-- Days (Simulated) -->
+<div class="p-2 text-gray-400">25</div>
+<div class="p-2 text-gray-400">26</div>
+<div class="p-2 text-gray-400">27</div>
+<div class="p-2 text-gray-400">28</div>
+<div class="p-2 text-gray-400">29</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">1</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">2</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">3</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">4</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">5</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">6</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">7</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">8</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">9</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">10</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">11</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">12</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">13</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">14</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">15</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">16</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">17</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">18</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">19</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">20</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">21</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">22</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">23</div>
+<div class="p-2 bg-primary text-white rounded-full font-bold shadow-md shadow-primary/30 cursor-pointer">24</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">25</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">26</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer relative">
+                                    27
+                                </div>
+<div class="p-2 text-primary font-bold bg-primary/10 rounded-full cursor-pointer relative">
+                                    28
+                                    <span class="absolute top-1 right-1 size-1.5 bg-accent rounded-full"></span>
+</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">29</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">30</div>
+<div class="p-2 text-text-main-light dark:text-text-main-dark hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full cursor-pointer">31</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

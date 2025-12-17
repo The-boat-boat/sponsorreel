@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SponsorReel - Create Event</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1e6d8a",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#121c20",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1a262b",
+                        "input-border": "#d2e0e5",
+                        "text-main": "#0f171a",
+                        "text-secondary": "#558191"
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom styles for range slider thumb since Tailwind forms plugin default can be basic */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #1e6d8a;
+            cursor: pointer;
+            margin-top: -8px; 
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #d2e0e5;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-white font-display antialiased selection:bg-primary/30">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e9eff2] dark:border-gray-800 bg-background-light dark:bg-card-dark px-6 py-3 lg:px-10 transition-colors">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">local_movies</span>
+</div>
+<h2 class="text-text-main dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">SponsorReel</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="hidden md:flex items-center gap-9">
+<a class="text-text-main dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Dashboard</a>
+<a class="text-text-main dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">My Events</a>
+<a class="text-text-main dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Sponsorships</a>
+<a class="text-text-main dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Messages</a>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="User profile avatar showing a smiling person" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCzbbyX49_4iCHlKW_1g25b68vkwbYesatOnKAjcjun6ukSU1ki8qEeyQPX-JjAS_ysuXGkuS0qlSnS8Hzr0jcAw3ZBz2bS9rufh5wHOgakpkIU5oaXlXNZX5yhZniR5xw7KqNlJkj9ry9CvwJIZQHti3fYFf3uRgR9Aq65t6QXfhH5OVIohFbiPRy5GblBZ8cwD-Apz4Ohf5MWkpQJDmJhnH_XON0IFwePbNARt6OPzeUXpMtzY9KVRtnPmwxxXcgjWr8v1IqyP0AI");'></div>
+</div>
+</header>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex justify-center py-8 px-4 md:px-8 lg:px-20">
+<div class="flex flex-col max-w-[1200px] w-full gap-8">
+<!-- Page Heading & Progress -->
+<div class="flex flex-col gap-6">
+<div class="flex flex-wrap justify-between items-end gap-4">
+<div class="flex flex-col gap-2">
+<h1 class="text-text-main dark:text-white text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em]">Create New Event</h1>
+<p class="text-text-secondary dark:text-gray-400 text-base font-normal">Provide the essential details sponsors need to evaluate your event.</p>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-card-light dark:bg-card-dark p-6 rounded-xl shadow-sm border border-input-border dark:border-gray-700">
+<div class="flex justify-between mb-2">
+<span class="text-primary font-bold text-sm uppercase tracking-wide">Step 1: Event Details</span>
+<span class="text-text-secondary dark:text-gray-500 text-sm">Step 1 of 3</span>
+</div>
+<div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+<div class="bg-primary h-2.5 rounded-full" style="width: 33%"></div>
+</div>
+<div class="flex justify-between mt-3 text-xs text-text-secondary dark:text-gray-500 font-medium">
+<span class="text-text-main dark:text-white">Details</span>
+<span>Location</span>
+<span>Demographics</span>
+<span>Review</span>
+</div>
+</div>
+</div>
+<!-- Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+<!-- Left Column: Form -->
+<div class="lg:col-span-2 flex flex-col gap-6">
+<!-- Section 1: Basic Info -->
+<section class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-input-border dark:border-gray-700 p-6 md:p-8">
+<div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100 dark:border-gray-700">
+<span class="material-symbols-outlined text-primary">info</span>
+<h3 class="text-lg font-bold text-text-main dark:text-white">Event Basics</h3>
+</div>
+<div class="space-y-6">
+<!-- Event Title -->
+<label class="block">
+<p class="text-text-main dark:text-gray-200 text-sm font-medium pb-2">Event Title</p>
+<input class="w-full rounded-lg border-input-border dark:border-gray-600 bg-background-light dark:bg-gray-800 text-text-main dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary h-12 px-4 placeholder:text-text-secondary" placeholder="e.g., Summer Movie Night: Top Gun Maverick" type="text"/>
+</label>
+<!-- Film Selection -->
+<label class="block">
+<p class="text-text-main dark:text-gray-200 text-sm font-medium pb-2">Select Film/Movie</p>
+<div class="relative">
+<select class="w-full appearance-none rounded-lg border-input-border dark:border-gray-600 bg-background-light dark:bg-gray-800 text-text-main dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary h-12 px-4 pr-10">
+<option disabled="" selected="" value="">Search for a movie or select form list...</option>
+<option value="1">Top Gun: Maverick (2022)</option>
+<option value="2">Barbie (2023)</option>
+<option value="3">Oppenheimer (2023)</option>
+<option value="4">The Super Mario Bros. Movie (2023)</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-text-secondary">
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</div>
+</label>
+<!-- Date & Time Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<label class="block">
+<p class="text-text-main dark:text-gray-200 text-sm font-medium pb-2">Date</p>
+<div class="relative">
+<input class="w-full rounded-lg border-input-border dark:border-gray-600 bg-background-light dark:bg-gray-800 text-text-main dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary h-12 px-4" type="date"/>
+</div>
+</label>
+<div class="flex gap-4">
+<label class="block flex-1">
+<p class="text-text-main dark:text-gray-200 text-sm font-medium pb-2">Start Time</p>
+<input class="w-full rounded-lg border-input-border dark:border-gray-600 bg-background-light dark:bg-gray-800 text-text-main dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary h-12 px-4" type="time"/>
+</label>
+<label class="block flex-1">
+<p class="text-text-main dark:text-gray-200 text-sm font-medium pb-2">End Time</p>
+<input class="w-full rounded-lg border-input-border dark:border-gray-600 bg-background-light dark:bg-gray-800 text-text-main dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary h-12 px-4" type="time"/>
+</label>
+</div>
+</div>
+<!-- Description -->
+<label class="block">
+<div class="flex justify-between items-center pb-2">
+<p class="text-text-main dark:text-gray-200 text-sm font-medium">Event Description</p>
+<span class="text-xs text-text-secondary">Markdown supported</span>
+</div>
+<textarea class="w-full rounded-lg border-input-border dark:border-gray-600 bg-background-light dark:bg-gray-800 text-text-main dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary min-h-[120px] p-4 placeholder:text-text-secondary" placeholder="Describe the atmosphere, any pre-show activities, and what makes this event special..."></textarea>
+</label>
+</div>
+</section>
+<!-- Section 2: Location -->
+<section class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-input-border dark:border-gray-700 p-6 md:p-8">
+<div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100 dark:border-gray-700">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<h3 class="text-lg font-bold text-text-main dark:text-white">Location &amp; Venue</h3>
+</div>
+<div class="space-y-6">
+<label class="block">
+<p class="text-text-main dark:text-gray-200 text-sm font-medium pb-2">Venue Name</p>
+<input class="w-full rounded-lg border-input-border dark:border-gray-600 bg-background-light dark:bg-gray-800 text-text-main dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary h-12 px-4" placeholder="e.g. Central City Park Amphitheater" type="text"/>
+</label>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<label class="block md:col-span-2">
+<p class="text-text-main dark:text-gray-200 text-sm font-medium pb-2">Street Address</p>
+<div class="relative">
+<input class="w-full rounded-lg border-input-border dark:border-gray-600 bg-background-light dark:bg-gray-800 text-text-main dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary h-12 px-4 pl-10" placeholder="Start typing address..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-3 text-text-secondary">search</span>
+</div>
+</label>
+<label class="block">
+<p class="text-text-main dark:text-gray-200 text-sm font-medium pb-2">Zip Code</p>
+<input class="w-full rounded-lg border-input-border dark:border-gray-600 bg-background-light dark:bg-gray-800 text-text-main dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary h-12 px-4" placeholder="10001" type="text"/>
+</label>
+</div>
+<label class="block">
+<p class="text-text-main dark:text-gray-200 text-sm font-medium pb-2">Estimated Attendance / Capacity</p>
+<div class="flex items-center gap-4">
+<input class="w-full md:w-1/3 rounded-lg border-input-border dark:border-gray-600 bg-background-light dark:bg-gray-800 text-text-main dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary h-12 px-4" placeholder="0" type="number"/>
+<span class="text-sm text-text-secondary">attendees expected</span>
+</div>
+</label>
+</div>
+<!-- Map Preview Placeholder -->
+<div class="mt-6 w-full h-48 bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden relative">
+<div class="absolute inset-0 flex items-center justify-center bg-cover bg-center opacity-70" data-alt="Map view of the selected location in New York City" data-location="New York City" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDSCpZwI1_eUS6WAX3GGIeNUTNDstWBhs5PvDO8AJWlUowavnEAjTKaLpCRxgTAev_YqjT_OnqmEyV-DeDFx_uylpOkoAbku84_sxyeJHkViCOYrMdr_i6TM2IZd1TiaGiHFYkQgZ4dshE3HqTuFvHwmUOGhpeCQ0487G9tFyMs-V5mSJguBwM-FT9azpTZFjaAn2TOH4rZn4tCc99YTnUzyvFEEQDhK12QNBi5hXycAvchob48HATYmMCNdjR3RQdGTWLUXHjYM8ne');"></div>
+<div class="relative z-10 bg-white dark:bg-gray-800 px-4 py-2 rounded-full shadow-md flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="text-xs font-bold text-text-main dark:text-white">Location Verified</span>
+</div>
+</div>
+</section>
+<!-- Section 3: Demographics -->
+<section class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-input-border dark:border-gray-700 p-6 md:p-8">
+<div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100 dark:border-gray-700">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">groups</span>
+<h3 class="text-lg font-bold text-text-main dark:text-white">Audience Demographics</h3>
+</div>
+<span class="bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded">Crucial for Sponsors</span>
+</div>
+<div class="space-y-8">
+<!-- Age Range -->
+<div>
+<div class="flex justify-between items-center mb-4">
+<p class="text-text-main dark:text-gray-200 text-sm font-medium">Target Age Group</p>
+<span class="text-primary font-bold text-sm">18 - 45 years</span>
+</div>
+<div class="px-2">
+<input class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" max="100" min="0" type="range" value="45"/>
+<div class="flex justify-between text-xs text-text-secondary mt-2">
+<span>Child</span>
+<span>Teen</span>
+<span>Young Adult</span>
+<span>Adult</span>
+<span>Senior</span>
+</div>
+</div>
+</div>
+<!-- Interest Tags -->
+<div>
+<p class="text-text-main dark:text-gray-200 text-sm font-medium mb-3">Audience Interests (Select all that apply)</p>
+<div class="flex flex-wrap gap-3">
+<button class="px-4 py-2 rounded-full text-sm font-medium bg-primary text-white border border-primary transition-colors" type="button">Family Friendly</button>
+<button class="px-4 py-2 rounded-full text-sm font-medium bg-background-light dark:bg-gray-800 text-text-secondary border border-input-border dark:border-gray-600 hover:border-primary hover:text-primary transition-colors" type="button">Date Night</button>
+<button class="px-4 py-2 rounded-full text-sm font-medium bg-background-light dark:bg-gray-800 text-text-secondary border border-input-border dark:border-gray-600 hover:border-primary hover:text-primary transition-colors" type="button">Horror Fans</button>
+<button class="px-4 py-2 rounded-full text-sm font-medium bg-background-light dark:bg-gray-800 text-text-secondary border border-input-border dark:border-gray-600 hover:border-primary hover:text-primary transition-colors" type="button">Foodies</button>
+<button class="px-4 py-2 rounded-full text-sm font-medium bg-background-light dark:bg-gray-800 text-text-secondary border border-input-border dark:border-gray-600 hover:border-primary hover:text-primary transition-colors" type="button">Students</button>
+<button class="px-4 py-2 rounded-full text-sm font-medium bg-primary/10 text-primary border border-primary/30 border-dashed hover:bg-primary/20 transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-sm">add</span> Add Custom
+                                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Action Buttons -->
+<div class="flex items-center justify-between pt-4 pb-10">
+<button class="px-6 py-3 rounded-lg font-bold text-text-secondary hover:text-text-main hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" type="button">
+                                Save as Draft
+                            </button>
+<button class="px-8 py-3 rounded-lg font-bold bg-primary text-white shadow-lg hover:bg-[#16566e] transition-colors flex items-center gap-2" type="button">
+                                Next Step
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Right Column: Sidebar -->
+<div class="lg:col-span-1 hidden lg:block">
+<div class="sticky top-28 flex flex-col gap-6">
+<!-- Context Card -->
+<div class="bg-primary/5 dark:bg-primary/10 border border-primary/20 rounded-xl p-6 relative overflow-hidden">
+<div class="absolute -top-6 -right-6 size-24 bg-primary/10 rounded-full blur-2xl"></div>
+<div class="flex items-start gap-3 mb-3 relative z-10">
+<div class="p-2 bg-white dark:bg-gray-800 rounded-full shadow-sm text-primary">
+<span class="material-symbols-outlined text-xl">lightbulb</span>
+</div>
+<h4 class="font-bold text-text-main dark:text-white text-lg mt-1">Why detailed data matters?</h4>
+</div>
+<p class="text-sm text-text-secondary dark:text-gray-300 mb-4 leading-relaxed relative z-10">
+                                    Sponsors use automated filters to find events. Providing detailed demographic data increases your match rate by up to <strong class="text-primary">40%</strong>.
+                                </p>
+<ul class="space-y-3 relative z-10">
+<li class="flex items-center gap-2 text-sm text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined text-green-500 text-lg">check</span>
+                                        Accurate attendee count
+                                    </li>
+<li class="flex items-center gap-2 text-sm text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined text-green-500 text-lg">check</span>
+                                        Specific interest tags
+                                    </li>
+<li class="flex items-center gap-2 text-sm text-text-main dark:text-gray-200">
+<span class="material-symbols-outlined text-green-500 text-lg">check</span>
+                                        Verified venue location
+                                    </li>
+</ul>
+</div>
+<!-- Help Card -->
+<div class="bg-card-light dark:bg-card-dark border border-input-border dark:border-gray-700 rounded-xl p-6">
+<h4 class="font-bold text-text-main dark:text-white mb-2">Need Help?</h4>
+<p class="text-sm text-text-secondary dark:text-gray-400 mb-4">
+                                    Check our guide on "Best Practices for Event Listings" to attract premium sponsors.
+                                </p>
+<a class="text-primary text-sm font-bold hover:underline flex items-center gap-1" href="#">
+                                    Read Guide <span class="material-symbols-outlined text-sm">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,35 @@
+---
+alwaysApply: true
+---
+
+# SponsorReel - Brand Context
+
+## Overview
+**SponsorReel** is a B2B marketplace that connects pop-up cinema operators with local business sponsors. The platform automates the sponsorship workflow—from discovery and proposal generation to contract management and payment processing—enabling operators to unlock new revenue streams beyond ticket sales.
+
+## Target Audience
+- **Primary (Supply):** Pop-up cinema operators, outdoor movie event organizers, and community event planners seeking to monetize through sponsorships
+- **Secondary (Demand):** Local businesses (restaurants, breweries, real estate agencies, car dealerships) looking for hyper-local advertising opportunities with engaged audiences
+
+## Brand Positioning
+SponsorReel is the infrastructure layer for community event sponsorships. We position ourselves as a professional, trustworthy platform that simplifies what is currently a manual, fragmented process. The tone is approachable yet business-focused—helping small operators look professional when pitching sponsors.
+
+## Core Features
+
+| Priority | Feature | Rationale |
+|----------|---------|-----------|
+| 1 | **Event Listing Dashboard** | Core value prop—operators list events |
+| 2 | **Sponsor Discovery/Browse** | Two-sided marketplace foundation |
+| 3 | **Location-based Matching** | Hyperlocal is the differentiator |
+| 4 | **Audience Demographics** | Sponsors filter by target audience |
+| 5 | **Sponsorship Package Builder** | Tiered offerings (Bronze/Silver/Gold) |
+| 6 | **In-Platform Messaging** | Communication without email exchange |
+| 7 | **Proposal Templates** | Automated, professional proposals |
+
+
+## Business Model
+- Operators: $49/month subscription + 5% commission on sponsored deals
+- Sponsors: $199–$999 per event (Bronze/Silver/Gold tiers)
+
+## Tech Stack Guidance
+Build as a responsive web app. Prioritize clean UI for non-technical users. Key flows: operator onboarding → event creation → sponsor browsing → proposal/contract → payment → analytics.
