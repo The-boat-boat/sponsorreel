@@ -17,7 +17,12 @@ const handleSubmit = async () => {
   })
   
   if (success) {
-    router.push('/dashboard')
+    // Redirect based on user type
+    if (authStore.user?.user_type === 'sponsor') {
+      router.push('/sponsor/dashboard')
+    } else {
+      router.push('/dashboard')
+    }
   }
 }
 </script>

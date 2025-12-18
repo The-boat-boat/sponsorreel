@@ -27,6 +27,12 @@ const router = createRouter({
       component: () => import('@/pages/OperatorSignupPage.vue'),
       meta: { requiresGuest: true }
     },
+    {
+      path: '/signup/sponsor',
+      name: 'signup-sponsor',
+      component: () => import('@/pages/SponsorSignupPage.vue'),
+      meta: { requiresGuest: true }
+    },
     
     // Protected Operator routes
     {
@@ -72,6 +78,38 @@ const router = createRouter({
       meta: { requiresAuth: true, userType: 'operator' }
     },
     
+    // Protected Sponsor routes
+    {
+      path: '/sponsor/dashboard',
+      name: 'sponsor-dashboard',
+      component: () => import('@/pages/SponsorDashboardPage.vue'),
+      meta: { requiresAuth: true, userType: 'sponsor' }
+    },
+    {
+      path: '/sponsor/events',
+      name: 'sponsor-events',
+      component: () => import('@/pages/SponsorEventsPage.vue'),
+      meta: { requiresAuth: true, userType: 'sponsor' }
+    },
+    {
+      path: '/sponsor/events/:id',
+      name: 'sponsor-event-detail',
+      component: () => import('@/pages/SponsorEventDetailPage.vue'),
+      meta: { requiresAuth: true, userType: 'sponsor' }
+    },
+    {
+      path: '/sponsor/applications',
+      name: 'sponsor-applications',
+      component: () => import('@/pages/SponsorApplicationsPage.vue'),
+      meta: { requiresAuth: true, userType: 'sponsor' }
+    },
+    {
+      path: '/sponsor/settings',
+      name: 'sponsor-settings',
+      component: () => import('@/pages/SponsorSettingsPage.vue'),
+      meta: { requiresAuth: true, userType: 'sponsor' }
+    },
+    
     // Catch all
     {
       path: '/:pathMatch(.*)*',
@@ -92,7 +130,12 @@ router.beforeEach((to, _from, next) => {
   
   // Check if route requires guest (not authenticated)
   if (to.meta.requiresGuest && authStore.isAuthenticated) {
-    next({ name: 'dashboard' })
+    // Redirect to appropriate dashboard based on user type
+    if (authStore.user?.user_type === 'sponsor') {
+      next({ name: 'sponsor-dashboard' })
+    } else {
+      next({ name: 'dashboard' })
+    }
     return
   }
   

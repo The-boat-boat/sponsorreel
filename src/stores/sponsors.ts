@@ -57,19 +57,40 @@ export const useSponsorsStore = defineStore('sponsors', () => {
     }
   }
 
-  async function toggleSaveSponsor(sponsorId: string) {
+  async function toggleSaveSponsor(sponsorId: string, operatorId?: string) {
     try {
+      if (!operatorId) {
+        throw new Error('Operator ID is required')
+      }
       if (savedSponsorIds.value.has(sponsorId)) {
-        await sponsorService.unsaveSponsor(sponsorId)
+        await sponsorService.unsaveSponsor(sponsorId, operatorId)
         savedSponsorIds.value.delete(sponsorId)
       } else {
-        await sponsorService.saveSponsor(sponsorId)
+        await sponsorService.saveSponsor(sponsorId, operatorId)
         savedSponsorIds.value.add(sponsorId)
       }
       return true
     } catch (e) {
       error.value = e instanceof Error ? e.message : 'Failed to save sponsor'
       return false
+    }
+  }
+
+  async function updateSponsorProfile(sponsorId: string, profileData: Partial<SponsorProfile>) {
+    loading.value = true
+    error.value = null
+    
+    try {
+      const updated = await sponsorService.updateSponsorProfile(sponsorId, profileData)
+      if (currentSponsor.value?.id === sponsorId) {
+        currentSponsor.value = updated
+      }
+      return updated
+    } catch (e) {
+      error.value = e instanceof Error ? e.message : 'Failed to update sponsor profile'
+      return null
+    } finally {
+      loading.value = false
     }
   }
 
@@ -101,6 +122,7 @@ export const useSponsorsStore = defineStore('sponsors', () => {
     fetchSponsor,
     toggleSaveSponsor,
     loadSavedSponsors,
-    isSaved
+    isSaved,
+    updateSponsorProfile
   }
 })

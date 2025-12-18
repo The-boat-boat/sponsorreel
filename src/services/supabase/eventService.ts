@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase'
-import type { Event, SponsorshipTier, EventDemographics } from '@/types'
+import type { Event, SponsorshipTier, EventDemographics, SponsorshipApplication, EventStatus } from '@/types'
 
 export const eventService = {
   async getEvents(operatorId: string): Promise<Event[]> {
@@ -17,11 +17,19 @@ export const eventService = {
       throw new Error(error.message || 'Failed to fetch events')
     }
 
-    return (data || []).map(event => ({
-      ...event,
-      sponsorship_tiers: event.sponsorship_tiers || [],
-      demographics: event.demographics || undefined
-    })) as Event[]
+    // Deduplicate by event ID to prevent duplicates from nested relations
+    const uniqueEvents = new Map<string, Event>()
+    for (const event of data || []) {
+      if (!uniqueEvents.has(event.id)) {
+        uniqueEvents.set(event.id, {
+          ...event,
+          sponsorship_tiers: event.sponsorship_tiers || [],
+          demographics: event.demographics || undefined
+        })
+      }
+    }
+
+    return Array.from(uniqueEvents.values()) as Event[]
   },
 
   async getEvent(eventId: string): Promise<Event> {
@@ -264,5 +272,145 @@ export const eventService = {
     }
 
     return data as EventDemographics
+  },
+
+  async browseEvents(filters?: {
+    query?: string
+    status?: EventStatus
+    minAttendance?: number
+    maxAttendance?: number
+    eventDateFrom?: string
+    eventDateTo?: string
+    interests?: string[]
+    page?: number
+    pageSize?: number
+  }): Promise<{ data: Event[]; total: number; page: number; pageSize: number }> {
+    let query = supabase
+      .from('events')
+      .select(`
+        *,
+        sponsorship_tiers (*),
+        demographics:event_demographics (*),
+        operator:profiles!events_operator_id_fkey (company_name, company_logo_url)
+      `, { count: 'exact' })
+      .eq('status', filters?.status || 'published')
+      .order('event_date', { ascending: true })
+
+    // Apply search query
+    if (filters?.query) {
+      query = query.or(`title.ilike.%${filters.query}%,description.ilike.%${filters.query}%,film_title.ilike.%${filters.query}%`)
+    }
+
+    // Apply attendance filters
+    if (filters?.minAttendance) {
+      query = query.gte('expected_attendance', filters.minAttendance)
+    }
+    if (filters?.maxAttendance) {
+      query = query.lte('expected_attendance', filters.maxAttendance)
+    }
+
+    // Apply date filters
+    if (filters?.eventDateFrom) {
+      query = query.gte('event_date', filters.eventDateFrom)
+    }
+    if (filters?.eventDateTo) {
+      query = query.lte('event_date', filters.eventDateTo)
+    }
+
+    // Apply pagination
+    const page = filters?.page || 1
+    const pageSize = filters?.pageSize || 12
+    const from = (page - 1) * pageSize
+    const to = from + pageSize - 1
+    query = query.range(from, to)
+
+    const { data, error, count } = await query
+
+    if (error) {
+      throw new Error(error.message || 'Failed to browse events')
+    }
+
+    // Process and deduplicate events
+    const uniqueEvents = new Map<string, Event>()
+    for (const event of data || []) {
+      if (!uniqueEvents.has(event.id)) {
+        uniqueEvents.set(event.id, {
+          ...event,
+          sponsorship_tiers: event.sponsorship_tiers || [],
+          demographics: event.demographics || undefined
+        } as Event)
+      }
+    }
+
+    // Filter by interests if specified (check demographics)
+    let filteredEvents = Array.from(uniqueEvents.values())
+    if (filters?.interests && filters.interests.length > 0) {
+      filteredEvents = filteredEvents.filter(event => {
+        const eventInterests = event.demographics?.interests || []
+        return filters.interests!.some(interest => eventInterests.includes(interest))
+      })
+    }
+
+    return {
+      data: filteredEvents,
+      total: count || 0,
+      page,
+      pageSize
+    }
+  },
+
+  async submitApplication(
+    eventId: string,
+    sponsorId: string,
+    tierId: string,
+    message: string
+  ): Promise<SponsorshipApplication> {
+    const { data, error } = await supabase
+      .from('sponsorship_applications')
+      .insert([{
+        event_id: eventId,
+        sponsor_id: sponsorId,
+        tier_id: tierId,
+        status: 'pending',
+        message: message,
+        submitted_at: new Date().toISOString()
+      }])
+      .select()
+      .single()
+
+    if (error || !data) {
+      throw new Error(error?.message || 'Failed to submit application')
+    }
+
+    return data as SponsorshipApplication
+  },
+
+  async getApplicationsBySponsor(sponsorId: string): Promise<SponsorshipApplication[]> {
+    const { data, error } = await supabase
+      .from('sponsorship_applications')
+      .select(`
+        *,
+        event:events (*),
+        tier:sponsorship_tiers (*)
+      `)
+      .eq('sponsor_id', sponsorId)
+      .order('submitted_at', { ascending: false })
+
+    if (error) {
+      throw new Error(error.message || 'Failed to fetch applications')
+    }
+
+    return (data || []) as SponsorshipApplication[]
+  },
+
+  async withdrawApplication(applicationId: string): Promise<void> {
+    const { error } = await supabase
+      .from('sponsorship_applications')
+      .update({ status: 'withdrawn' })
+      .eq('id', applicationId)
+
+    if (error) {
+      throw new Error(error.message || 'Failed to withdraw application')
+    }
   }
 }

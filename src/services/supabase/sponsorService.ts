@@ -76,8 +76,16 @@ export const sponsorService = {
       throw new Error(error.message || 'Failed to search sponsors')
     }
 
+    // Deduplicate by sponsor ID to prevent duplicates from nested relations
+    const uniqueSponsors = new Map<string, any>()
+    for (const sponsor of data || []) {
+      if (!uniqueSponsors.has(sponsor.id)) {
+        uniqueSponsors.set(sponsor.id, sponsor)
+      }
+    }
+
     // Enrich with computed fields
-    const enrichedSponsors = (data || []).map(sponsor => {
+    const enrichedSponsors = Array.from(uniqueSponsors.values()).map(sponsor => {
       const sponsorProfile = {
         ...sponsor,
         profile: sponsor.profile || undefined
@@ -226,5 +234,62 @@ export const sponsorService = {
 
     const types = new Set((data || []).map(s => s.business_type))
     return Array.from(types).sort()
+  },
+
+  async updateSponsorProfile(
+    sponsorId: string,
+    profileData: Partial<SponsorProfile>
+  ): Promise<SponsorProfile> {
+    const updateData: any = {}
+
+    if (profileData.business_type !== undefined) updateData.business_type = profileData.business_type
+    if (profileData.description !== undefined) updateData.description = profileData.description
+    if (profileData.target_audience !== undefined) updateData.target_audience = profileData.target_audience
+    if (profileData.budget_tier !== undefined) updateData.budget_tier = profileData.budget_tier
+    if (profileData.budget_min !== undefined) updateData.budget_min = profileData.budget_min
+    if (profileData.budget_max !== undefined) updateData.budget_max = profileData.budget_max
+    if (profileData.preferred_event_types !== undefined) updateData.preferred_event_types = profileData.preferred_event_types
+    if (profileData.assets_available !== undefined) updateData.assets_available = profileData.assets_available
+    if (profileData.cover_image_url !== undefined) updateData.cover_image_url = profileData.cover_image_url
+    if (profileData.media_kit_url !== undefined) updateData.media_kit_url = profileData.media_kit_url
+
+    const { data, error } = await supabase
+      .from('sponsor_profiles')
+      .update(updateData)
+      .eq('id', sponsorId)
+      .select(`
+        *,
+        profile:profiles (*)
+      `)
+      .single()
+
+    if (error || !data) {
+      throw new Error(error?.message || 'Failed to update sponsor profile')
+    }
+
+    return {
+      ...data,
+      profile: data.profile || undefined
+    } as SponsorProfile
+  },
+
+  async getSponsorByProfileId(profileId: string): Promise<SponsorProfile | null> {
+    const { data, error } = await supabase
+      .from('sponsor_profiles')
+      .select(`
+        *,
+        profile:profiles (*)
+      `)
+      .eq('profile_id', profileId)
+      .single()
+
+    if (error || !data) {
+      return null
+    }
+
+    return {
+      ...data,
+      profile: data.profile || undefined
+    } as SponsorProfile
   }
 }

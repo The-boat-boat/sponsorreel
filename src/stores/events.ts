@@ -112,6 +112,51 @@ export const useEventsStore = defineStore('events', () => {
     }
   }
 
+  async function browseEvents(filters?: {
+    query?: string
+    status?: 'published'
+    minAttendance?: number
+    maxAttendance?: number
+    eventDateFrom?: string
+    eventDateTo?: string
+    interests?: string[]
+    page?: number
+    pageSize?: number
+  }) {
+    loading.value = true
+    error.value = null
+    
+    try {
+      const result = await eventService.browseEvents(filters)
+      return result
+    } catch (e) {
+      error.value = e instanceof Error ? e.message : 'Failed to browse events'
+      return null
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function submitApplication(
+    eventId: string,
+    sponsorId: string,
+    tierId: string,
+    message: string
+  ) {
+    loading.value = true
+    error.value = null
+    
+    try {
+      const application = await eventService.submitApplication(eventId, sponsorId, tierId, message)
+      return application
+    } catch (e) {
+      error.value = e instanceof Error ? e.message : 'Failed to submit application'
+      return null
+    } finally {
+      loading.value = false
+    }
+  }
+
   return {
     // State
     events,
@@ -127,6 +172,8 @@ export const useEventsStore = defineStore('events', () => {
     fetchEvent,
     createEvent,
     updateEvent,
-    deleteEvent
+    deleteEvent,
+    browseEvents,
+    submitApplication
   }
 })

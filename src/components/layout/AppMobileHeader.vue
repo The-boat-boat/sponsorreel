@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
@@ -9,16 +9,26 @@ const authStore = useAuthStore()
 
 const isMenuOpen = ref(false)
 
-const navItems = [
-  { name: 'Dashboard', icon: 'dashboard', route: '/dashboard' },
-  { name: 'Events', icon: 'calendar_today', route: '/events' },
-  { name: 'Sponsors', icon: 'handshake', route: '/sponsors' },
-  { name: 'Payments', icon: 'payments', route: '/payments' },
-  { name: 'Settings', icon: 'settings', route: '/settings' }
-]
+const navItems = computed(() => {
+  if (authStore.user?.user_type === 'sponsor') {
+    return [
+      { name: 'Dashboard', icon: 'dashboard', route: '/sponsor/dashboard' },
+      { name: 'Browse Events', icon: 'search', route: '/sponsor/events' },
+      { name: 'My Applications', icon: 'description', route: '/sponsor/applications' },
+      { name: 'Settings', icon: 'settings', route: '/sponsor/settings' }
+    ]
+  }
+  return [
+    { name: 'Dashboard', icon: 'dashboard', route: '/dashboard' },
+    { name: 'Events', icon: 'calendar_today', route: '/events' },
+    { name: 'Sponsors', icon: 'handshake', route: '/sponsors' },
+    { name: 'Payments', icon: 'payments', route: '/payments' },
+    { name: 'Settings', icon: 'settings', route: '/settings' }
+  ]
+})
 
 const isActive = (path: string) => {
-  if (path === '/dashboard') {
+  if (path === '/dashboard' || path === '/sponsor/dashboard') {
     return route.path === path
   }
   return route.path.startsWith(path)
@@ -88,7 +98,9 @@ const handleLogout = async () => {
           </div>
           <div>
             <h1 class="text-lg font-bold leading-tight text-primary dark:text-white">SponsorReel</h1>
-            <p class="text-xs text-text-sub-light dark:text-text-sub-dark font-medium">Operator Console</p>
+            <p class="text-xs text-text-sub-light dark:text-text-sub-dark font-medium">
+              {{ authStore.user?.user_type === 'sponsor' ? 'Sponsor Console' : 'Operator Console' }}
+            </p>
           </div>
         </div>
         
