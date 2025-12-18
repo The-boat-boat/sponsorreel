@@ -1,0 +1,6 @@
+export { default as StatCard } from './StatCard.vue'
+export { default as EventsTable } from './EventsTable.vue'
+export { default as RevenueChart } from './RevenueChart.vue'
+export { default as ActivityFeed } from './ActivityFeed.vue'
+export { default as MiniCalendar } from './MiniCalendar.vue'
+export { default as QuickActions } from './QuickActions.vue'
