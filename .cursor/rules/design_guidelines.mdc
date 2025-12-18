@@ -1,0 +1,1088 @@
+# SponsorReel Design Guidelines
+
+## Overview
+
+SponsorReel is a B2B marketplace connecting pop-up cinema operators with local business sponsors. The design system emphasizes **professionalism, trust, and accessibility** while maintaining a modern, clean aesthetic. The UI should feel sophisticated yet approachable, enabling non-technical users to navigate complex workflows with confidence.
+
+### Design Philosophy
+- **Professional yet Friendly**: Business-focused without being corporate or intimidating
+- **Data-Dense but Breathable**: Present complex information clearly with adequate whitespace
+- **Consistency First**: Reuse patterns across operator and sponsor interfaces
+- **Dark Mode Native**: Both light and dark themes are first-class citizens
+
+---
+
+## Color Palette
+
+### Primary Brand Colors
+```css
+/* Primary Blue - Used for CTAs, active states, links */
+--primary: #1e6d8a
+--primary-dark: #16556b (hover/pressed states)
+--primary-hover: #16566e
+
+/* Accent Orange - Highlights, notifications, urgent actions */
+--accent: #f97316
+```
+
+### Backgrounds
+```css
+/* Light Theme */
+--background-light: #f6f7f8 / #f9fbfb
+--surface-light: #ffffff
+--card-light: #ffffff
+
+/* Dark Theme */
+--background-dark: #121c20
+--surface-dark: #1a262b / #1a262c
+--card-dark: #1a262b / #1a262c
+```
+
+### Text Colors
+```css
+/* Light Theme */
+--text-main-light: #0f171a
+--text-secondary-light: #558191
+--text-sub-light: #558191
+
+/* Dark Theme */
+--text-main-dark: #eef2f4 / #f0f4f6
+--text-secondary-dark: #8daab5 / #9ab0b8
+--text-sub-dark: #9ab0b8
+```
+
+### Borders
+```css
+/* Light Theme */
+--border-light: #e9eff2
+--input-border: #d2e0e5
+
+/* Dark Theme */
+--border-dark: #2a3b45
+--border-gray-800: theme('colors.gray.800')
+--border-gray-700: theme('colors.gray.700')
+```
+
+### Semantic Colors
+```css
+/* Success/Completed States */
+--success-bg-light: bg-green-100
+--success-text-light: text-green-700
+--success-bg-dark: dark:bg-green-900/30
+--success-text-dark: dark:text-green-400
+
+/* Warning/Pending States */
+--warning-bg-light: bg-yellow-100
+--warning-text-light: text-yellow-800
+--warning-bg-dark: dark:bg-yellow-900/40
+--warning-text-dark: dark:text-yellow-500
+
+/* Error/Urgent States */
+--error-bg: bg-red-500
+--error-border: border-red-500
+
+/* Info/Neutral States */
+--info-bg-light: bg-blue-100
+--info-text: text-primary
+--info-bg-dark: dark:bg-blue-900/30
+```
+
+### Color Usage Guidelines
+1. **Primary (#1e6d8a)**: Main CTAs, navigation active states, links, accent icons
+2. **Accent (#f97316)**: Notifications badges, urgent alerts, highlights (use sparingly)
+3. **Semantic Colors**: Always pair background with appropriate text color for accessibility
+4. **Gradients**: Minimal use - reserved for hero sections or premium CTA cards (e.g., `from-primary to-primary-dark`)
+
+---
+
+## Typography
+
+### Font Family
+```css
+font-family: 'Manrope', sans-serif;
+```
+**Import**: `@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');`
+
+### Font Weight Scale
+- **200-300**: Rarely used, reserved for very large display text
+- **400 (Regular)**: Body text, descriptions, secondary labels
+- **500 (Medium)**: Subheadings, form labels, secondary buttons
+- **600 (Semibold)**: Navigation links, card titles (when not bold)
+- **700 (Bold)**: Primary headings, button text, table headers
+- **800 (Extrabold/Black)**: Page titles, hero headings
+
+### Type Scale
+
+#### Headings
+```css
+/* Page Titles (Dashboard, Event Pages) */
+.heading-page {
+  @apply text-3xl md:text-4xl font-extrabold tracking-tight;
+  /* tracking: -0.033em */
+}
+
+/* Section Headings (Cards, Panels) */
+.heading-section {
+  @apply text-lg font-bold;
+}
+
+/* Card Titles */
+.heading-card {
+  @apply text-xl font-bold tracking-tight;
+}
+
+/* Subsection Titles */
+.heading-subsection {
+  @apply text-base font-bold;
+}
+```
+
+#### Body Text
+```css
+/* Primary Body */
+.body-primary {
+  @apply text-base font-normal leading-relaxed;
+}
+
+/* Secondary/Muted Body */
+.body-secondary {
+  @apply text-sm text-text-secondary dark:text-text-secondary-dark;
+}
+
+/* Small Text (metadata, timestamps) */
+.text-small {
+  @apply text-xs;
+}
+```
+
+#### Labels & UI Elements
+```css
+/* Form Labels */
+.label {
+  @apply text-sm font-medium text-text-main dark:text-gray-200 pb-2;
+}
+
+/* Button Text */
+.button-text {
+  @apply text-sm font-bold;
+  /* or text-base font-bold for larger buttons */
+}
+
+/* Badge/Tag Text */
+.badge-text {
+  @apply text-xs font-bold uppercase tracking-wide;
+}
+
+/* Navigation Links */
+.nav-link {
+  @apply text-sm font-medium; /* inactive */
+  @apply text-sm font-bold; /* active or primary action */
+}
+```
+
+### Typography Pairing Examples
+- **Page Header**: `text-3xl md:text-4xl font-extrabold` + `text-text-secondary text-lg font-medium` (subheading)
+- **Card Header**: `text-lg font-bold` + `text-sm text-text-secondary` (description)
+- **Stat Display**: `text-3xl font-bold` (value) + `text-text-secondary font-medium` (label)
+
+---
+
+## Spacing System
+
+SponsorReel uses Tailwind's default spacing scale with specific patterns for consistency:
+
+### Layout Spacing
+```css
+/* Page Padding */
+.page-wrapper {
+  @apply px-4 py-8 md:px-8 lg:px-20;
+  /* or: p-4 md:p-8 for compact pages */
+}
+
+/* Max Width Containers */
+.container-max {
+  @apply max-w-7xl mx-auto; /* Dashboard */
+  @apply max-w-6xl mx-auto; /* Discovery pages */
+  @apply max-w-[1200px] mx-auto; /* Profile pages */
+}
+```
+
+### Component Spacing
+```css
+/* Card Padding */
+.card-padding {
+  @apply p-6 md:p-8; /* Standard cards */
+  @apply p-5; /* Compact sidebar cards */
+}
+
+/* Section Gaps */
+.section-gap {
+  @apply space-y-8; /* Between major sections */
+  @apply space-y-6; /* Between cards in sidebar */
+  @apply space-y-4; /* Within forms */
+}
+
+/* Element Gaps */
+.element-gap {
+  @apply gap-4; /* Flex/Grid default */
+  @apply gap-3; /* Compact groups (filters, tags) */
+  @apply gap-2; /* Tight elements (icons + text) */
+}
+```
+
+### Common Patterns
+- **Form Fields**: `space-y-6` between fields, `pb-2` for labels
+- **Button Groups**: `gap-3` or `gap-4` for horizontal, `space-y-3` for vertical
+- **Icon + Text**: `gap-2` or `gap-3` depending on icon size
+- **Card Borders**: `border-b` with `pb-4` and `mb-6` for section dividers within cards
+
+---
+
+## Component Styles
+
+### Buttons
+
+#### Primary CTA
+```html
+<button class="flex items-center justify-center gap-2 rounded-lg h-12 px-6 bg-primary hover:bg-primary/90 transition-colors text-white font-bold shadow-md shadow-primary/20">
+  <span class="material-symbols-outlined">add</span>
+  <span>Create New Event</span>
+</button>
+```
+
+#### Secondary Button
+```html
+<button class="flex items-center justify-center gap-2 rounded-lg h-12 px-5 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-text-main dark:text-text-main-dark transition-colors font-bold border border-transparent dark:border-gray-700">
+  <span class="material-symbols-outlined">search</span>
+  <span>Find Sponsors</span>
+</button>
+```
+
+#### Outline Button
+```html
+<button class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-bold text-slate-700 dark:text-slate-200 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+  <span class="material-symbols-outlined text-[20px]">bookmark</span>
+  Save
+</button>
+```
+
+#### Text Button (Minimal)
+```html
+<button class="text-sm font-semibold text-primary hover:text-primary/80 transition-colors flex items-center gap-1">
+  View All <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+```
+
+#### Button Sizing
+- **Large (Primary Actions)**: `h-12 px-6 md:px-8 text-base`
+- **Standard**: `h-10 px-4 md:px-5 text-sm`
+- **Compact**: `h-8 px-3 text-xs`
+
+### Cards
+
+#### Standard Card
+```html
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6 md:p-8">
+  <!-- Card Header with Divider -->
+  <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100 dark:border-gray-700">
+    <span class="material-symbols-outlined text-primary">info</span>
+    <h3 class="text-lg font-bold text-text-main dark:text-white">Section Title</h3>
+  </div>
+  <!-- Card Content -->
+</div>
+```
+
+#### Stat Card
+```html
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col gap-2 relative overflow-hidden group">
+  <div class="absolute right-0 top-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+    <span class="material-symbols-outlined text-6xl text-primary">monitoring</span>
+  </div>
+  <p class="text-text-sub-light dark:text-text-sub-dark font-medium">Revenue YTD</p>
+  <div class="flex items-baseline gap-2">
+    <h2 class="text-3xl font-bold text-text-main-light dark:text-text-main-dark">$12,450</h2>
+    <span class="text-sm font-semibold text-green-600 bg-green-100 dark:bg-green-900/30 dark:text-green-400 px-2 py-0.5 rounded-full">+12%</span>
+  </div>
+</div>
+```
+
+#### Interactive Card (Hover State)
+```html
+<div class="group flex flex-col bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300">
+  <!-- Card content -->
+</div>
+```
+
+### Forms
+
+#### Text Input
+```html
+<label class="block">
+  <p class="text-text-main dark:text-gray-200 text-sm font-medium pb-2">Event Title</p>
+  <input 
+    type="text"
+    class="w-full rounded-lg border-input-border dark:border-gray-600 bg-background-light dark:bg-gray-800 text-text-main dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary h-12 px-4 placeholder:text-text-secondary"
+    placeholder="e.g., Summer Movie Night"
+  />
+</label>
+```
+
+#### Select Dropdown
+```html
+<div class="relative">
+  <select class="w-full appearance-none rounded-lg border-input-border dark:border-gray-600 bg-background-light dark:bg-gray-800 text-text-main dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary h-12 px-4 pr-10">
+    <option>Option 1</option>
+  </select>
+  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-text-secondary">
+    <span class="material-symbols-outlined">expand_more</span>
+  </div>
+</div>
+```
+
+#### Textarea
+```html
+<textarea class="w-full rounded-lg border-input-border dark:border-gray-600 bg-background-light dark:bg-gray-800 text-text-main dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary min-h-[120px] p-4 placeholder:text-text-secondary"></textarea>
+```
+
+#### Search Input
+```html
+<div class="relative w-full">
+  <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+    <span class="material-symbols-outlined text-text-secondary dark:text-text-secondary-dark">search</span>
+  </div>
+  <input 
+    type="text"
+    class="w-full h-12 pl-12 pr-4 rounded-lg bg-background-light dark:bg-background-dark border-none focus:ring-2 focus:ring-primary text-text-main dark:text-white placeholder:text-text-secondary"
+    placeholder="Search by business name..."
+  />
+</div>
+```
+
+### Badges & Tags
+
+#### Status Badge
+```html
+<!-- Success/Completed -->
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400">
+  <span class="size-1.5 rounded-full bg-green-500"></span>
+  Fully Funded
+</span>
+
+<!-- Pending/Warning -->
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-500">
+  <span class="size-1.5 rounded-full bg-yellow-500"></span>
+  Pending
+</span>
+
+<!-- Draft/Neutral -->
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600 dark:bg-gray-700/50 dark:text-gray-400">
+  <span class="size-1.5 rounded-full bg-gray-500"></span>
+  Draft
+</span>
+```
+
+#### Filter Chip/Tag (Interactive)
+```html
+<!-- Selected State -->
+<button class="px-4 py-2 rounded-full text-sm font-medium bg-primary text-white border border-primary transition-colors">
+  Family Friendly
+</button>
+
+<!-- Unselected State -->
+<button class="px-4 py-2 rounded-full text-sm font-medium bg-background-light dark:bg-gray-800 text-text-secondary border border-input-border dark:border-gray-600 hover:border-primary hover:text-primary transition-colors">
+  Date Night
+</button>
+```
+
+#### Verified Badge
+```html
+<span class="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary dark:bg-primary/20">
+  <span class="material-symbols-outlined text-[14px] filled">verified</span>
+  Verified Sponsor
+</span>
+```
+
+### Tables
+
+```html
+<div class="overflow-x-auto">
+  <table class="w-full text-left border-collapse">
+    <thead>
+      <tr class="bg-gray-50/50 dark:bg-gray-800/30 text-xs uppercase text-text-sub-light dark:text-text-sub-dark font-semibold tracking-wider">
+        <th class="px-6 py-4">Event Name</th>
+        <th class="px-6 py-4">Date</th>
+        <th class="px-6 py-4 text-right">Action</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+      <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group">
+        <td class="px-6 py-4">
+          <span class="font-semibold text-text-main-light dark:text-text-main-dark">Event Title</span>
+        </td>
+        <td class="px-6 py-4 text-sm font-medium text-text-sub-light dark:text-text-sub-dark">Oct 28, 2023</td>
+        <td class="px-6 py-4 text-right">
+          <button class="text-gray-400 hover:text-primary dark:hover:text-white">
+            <span class="material-symbols-outlined">more_vert</span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+### Navigation
+
+#### Sidebar Navigation
+```html
+<nav class="flex-1 overflow-y-auto px-4 py-4 space-y-1">
+  <!-- Active Link -->
+  <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary dark:text-white dark:bg-primary/20 group transition-colors" href="#">
+    <span class="material-symbols-outlined filled">dashboard</span>
+    <span class="text-sm font-semibold">Dashboard</span>
+  </a>
+  
+  <!-- Inactive Link -->
+  <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-sub-light dark:text-text-sub-dark hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary dark:hover:text-white transition-colors" href="#">
+    <span class="material-symbols-outlined">calendar_today</span>
+    <span class="text-sm font-medium">Events</span>
+  </a>
+</nav>
+```
+
+#### Top Navigation
+```html
+<nav class="hidden md:flex items-center gap-8">
+  <a class="text-sm font-medium text-text-secondary dark:text-text-secondary-dark hover:text-primary dark:hover:text-primary transition-colors" href="#">Dashboard</a>
+  <a class="text-sm font-bold text-primary" href="#">Discovery</a>
+</nav>
+```
+
+---
+
+## Shadows & Elevation
+
+### Shadow Scale
+```css
+/* Subtle elevation (cards on page background) */
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+/* Standard elevation (buttons, dropdowns) */
+.shadow-md {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+/* Colored shadows (primary buttons, active cards) */
+.shadow-primary {
+  box-shadow: 0 4px 6px -1px rgb(30 109 138 / 0.2);
+}
+
+/* Hover elevation (interactive cards) */
+.hover:shadow-lg {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+```
+
+### Usage Guidelines
+- **Cards**: `shadow-sm` by default
+- **Primary CTAs**: `shadow-md` + `shadow-primary/20` for colored glow
+- **Interactive Cards**: `shadow-sm` → `hover:shadow-lg` transition
+- **Modals/Popovers**: `shadow-lg` or higher
+- **Dark Mode**: Shadows are less pronounced; consider using borders more prominently
+
+---
+
+## Animations & Transitions
+
+### Transition Utilities
+```css
+/* Standard (color, background, border) */
+.transition-colors {
+  transition-property: color, background-color, border-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Transform (scale, translate) */
+.transition-transform {
+  transition-property: transform;
+  transition-duration: 300ms;
+}
+
+/* All properties (use sparingly) */
+.transition-all {
+  transition-property: all;
+  transition-duration: 300ms;
+}
+
+/* Custom duration for slower effects */
+.duration-200 {} /* 200ms - quick interactions */
+.duration-300 {} /* 300ms - standard */
+.duration-500 {} /* 500ms - images, large movements */
+```
+
+### Common Animation Patterns
+
+#### Button Hover
+```html
+<button class="bg-primary hover:bg-primary/90 transition-colors">
+```
+
+#### Card Hover (Image Scale)
+```html
+<div class="group">
+  <img class="group-hover:scale-105 transition-transform duration-500" />
+</div>
+```
+
+#### Icon Opacity on Hover
+```html
+<div class="group">
+  <div class="opacity-10 group-hover:opacity-20 transition-opacity">
+    <span class="material-symbols-outlined">icon</span>
+  </div>
+</div>
+```
+
+#### Backdrop Blur (Sticky Headers)
+```html
+<header class="sticky top-0 backdrop-blur-md bg-card-light/80 dark:bg-card-dark/80">
+```
+
+#### Loading States
+```html
+<!-- Pulse animation for skeletons -->
+<div class="animate-pulse bg-gray-200 dark:bg-gray-700 h-4 w-24 rounded"></div>
+```
+
+### Animation Best Practices
+- **Duration**: 200ms for simple property changes, 300-500ms for transforms
+- **Easing**: Use `transition-all` sparingly; prefer `transition-colors` or `transition-transform`
+- **Hover States**: Always include `:focus-visible` for accessibility
+- **Reduced Motion**: Respect `prefers-reduced-motion` for accessibility
+
+---
+
+## Border Radius
+
+### Scale
+```css
+/* Tailwind Config Override */
+borderRadius: {
+  "DEFAULT": "0.25rem",  /* 4px */
+  "lg": "0.5rem",         /* 8px */
+  "xl": "0.75rem",        /* 12px */
+  "2xl": "1rem",          /* 16px */
+  "full": "9999px"        /* Circular */
+}
+```
+
+### Component Mapping
+- **Buttons**: `rounded-lg` (8px)
+- **Cards**: `rounded-xl` (12px)
+- **Inputs**: `rounded-lg` (8px)
+- **Badges/Tags**: `rounded-full` (pill shape)
+- **Images/Avatars**: `rounded-lg` (thumbnails) or `rounded-full` (profile pics)
+- **Modals**: `rounded-xl` or `rounded-2xl` (16px)
+- **Small Elements** (chips, inline badges): `rounded` (4px) or `rounded-md` (6px)
+
+---
+
+## Opacity & Transparency
+
+### Common Opacity Levels
+```css
+/* Subtle overlays */
+.bg-black/60      /* 60% opacity - image overlays */
+.bg-white/90      /* 90% opacity - glass badges on images */
+
+/* Icon backgrounds */
+.bg-primary/10    /* 10% - neutral state */
+.bg-primary/20    /* 20% - active/hover state */
+.bg-primary/30    /* 30% - emphasis */
+
+/* Hover states */
+.opacity-10 group-hover:opacity-20  /* Decorative icons */
+
+/* Disabled states */
+.disabled:opacity-50
+
+/* Dark mode adjustments */
+.dark:bg-green-900/30   /* Semantic color backgrounds */
+```
+
+### Usage Patterns
+1. **Colored Backgrounds**: Use `/10` to `/30` opacity for colored card sections
+2. **Image Overlays**: `bg-gradient-to-t from-black/60 to-transparent` for text legibility
+3. **Glass Effects**: Combine `bg-white/80` or `/90` with `backdrop-blur-md`
+4. **Icon Containers**: `bg-primary/10` for neutral, increase to `/20` on hover
+
+---
+
+## Common Tailwind CSS Usage in Project
+
+### Frequently Used Utility Combinations
+
+#### Flexbox Patterns
+```css
+/* Centered container */
+.flex items-center justify-center
+
+/* Space between (header layouts) */
+.flex items-center justify-between
+
+/* Column with gap */
+.flex flex-col gap-4
+
+/* Responsive row to column */
+.flex flex-col md:flex-row
+```
+
+#### Grid Patterns
+```css
+/* Responsive card grid */
+.grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6
+
+/* Dashboard layout (66% + 33%) */
+.grid grid-cols-1 lg:grid-cols-3 gap-8
+  .lg:col-span-2  /* Main content */
+  .lg:col-span-1  /* Sidebar */
+```
+
+#### Typography Combinations
+```css
+/* Page headers */
+.text-3xl md:text-4xl font-extrabold tracking-tight
+
+/* Card titles */
+.text-lg font-bold text-text-main dark:text-white
+
+/* Muted text */
+.text-sm text-text-secondary dark:text-text-secondary-dark
+
+/* Uppercase labels */
+.text-xs font-bold uppercase tracking-wider text-slate-400
+```
+
+#### Interactive States
+```css
+/* Link hover */
+.hover:text-primary dark:hover:text-white transition-colors
+
+/* Button hover */
+.hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors
+
+/* Card hover */
+.hover:shadow-lg hover:border-primary/30 transition-all duration-300
+```
+
+---
+
+## Mobile / Tablet Responsiveness
+
+### Breakpoint Strategy
+```css
+/* Tailwind Breakpoints */
+sm: 640px   /* Rarely used - prefer direct to md */
+md: 768px   /* Tablet portrait - primary mobile breakpoint */
+lg: 1024px  /* Desktop - sidebar/multi-column layouts appear */
+xl: 1280px  /* Large desktop - optional max-width constraints */
+```
+
+### Responsive Patterns
+
+#### Layout Adaptation
+```html
+<!-- Sidebar: Hidden on mobile, visible on desktop -->
+<aside class="hidden md:flex">...</aside>
+
+<!-- Mobile hamburger -->
+<button class="md:hidden">
+  <span class="material-symbols-outlined">menu</span>
+</button>
+
+<!-- Responsive grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+```
+
+#### Typography Scaling
+```html
+<h1 class="text-3xl md:text-4xl font-extrabold">
+<p class="text-base md:text-lg">
+```
+
+#### Spacing Adjustments
+```html
+<!-- Padding scales up on larger screens -->
+<div class="p-4 md:p-8 lg:px-20">
+<div class="px-4 md:px-8 lg:px-16">
+
+<!-- Gaps increase -->
+<div class="gap-4 md:gap-6 lg:gap-8">
+```
+
+#### Component Behavior
+```html
+<!-- Stack on mobile, row on desktop -->
+<div class="flex flex-col md:flex-row gap-4">
+
+<!-- Full width on mobile, constrained on desktop -->
+<button class="w-full md:w-auto">
+
+<!-- Hide decorative elements on mobile -->
+<div class="hidden lg:block">Mini Calendar</div>
+```
+
+### Mobile-First Best Practices
+1. **Start with mobile styles**, add `md:` and `lg:` prefixes for larger screens
+2. **Touch targets**: Minimum `h-12` (48px) for interactive elements
+3. **Navigation**: Collapse to hamburger menu below `md:` breakpoint
+4. **Tables**: Use `overflow-x-auto` wrapper for horizontal scroll
+5. **Modals**: Full-screen on mobile (`h-screen`), centered on desktop
+6. **Forms**: Stack fields vertically on mobile, consider 2-column grid on desktop for related fields
+7. **Images**: Use responsive sizing (`w-full h-auto`) and `object-cover` for fixed-height containers
+
+---
+
+## Icon System
+
+### Material Symbols Configuration
+```html
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+```
+
+### Base Icon Styles
+```css
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Filled variant (for active states) */
+.material-symbols-outlined.filled {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+```
+
+### Icon Sizing
+```html
+<!-- Small (inline with text) -->
+<span class="material-symbols-outlined text-[14px]">check</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+
+<!-- Standard (UI elements) -->
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+
+<!-- Medium (buttons, cards) -->
+<span class="material-symbols-outlined">dashboard</span>  <!-- 24px default -->
+
+<!-- Large (decorative backgrounds) -->
+<span class="material-symbols-outlined text-4xl">location_on</span>
+<span class="material-symbols-outlined text-6xl">monitoring</span>
+```
+
+### Common Icons Reference
+- **Navigation**: `dashboard`, `calendar_today`, `handshake`, `payments`, `settings`
+- **Actions**: `add`, `search`, `edit`, `delete`, `more_vert`, `close`
+- **Status**: `check_circle`, `verified`, `pending_actions`, `error`
+- **Media**: `movie_filter`, `local_movies`, `movie`, `image`
+- **UI**: `expand_more`, `chevron_left`, `chevron_right`, `arrow_forward`, `menu`
+- **Communication**: `mail`, `notifications`, `message`
+- **Location**: `location_on`, `place`, `map`
+
+---
+
+## Dark Mode Implementation
+
+### Strategy
+Both light and dark themes are **first-class citizens** with explicit support:
+
+```html
+<html class="light">  <!-- or class="dark" -->
+```
+
+### Tailwind Dark Mode Config
+```javascript
+tailwind.config = {
+  darkMode: "class",  // Use class-based dark mode
+  // ...
+}
+```
+
+### Dark Mode Patterns
+
+#### Background & Surface
+```html
+<body class="bg-background-light dark:bg-background-dark">
+<div class="bg-surface-light dark:bg-surface-dark">
+<div class="bg-card-light dark:bg-card-dark">
+```
+
+#### Text Colors
+```html
+<h1 class="text-text-main-light dark:text-text-main-dark">
+<p class="text-text-secondary-light dark:text-text-secondary-dark">
+```
+
+#### Borders
+```html
+<div class="border border-gray-200 dark:border-gray-800">
+<div class="border-b border-gray-100 dark:border-gray-700">
+```
+
+#### Interactive States
+```html
+<button class="bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">
+```
+
+#### Semantic Colors (Dark Variants)
+```html
+<!-- Success -->
+<span class="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+
+<!-- Warning -->
+<span class="bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-500">
+```
+
+### Dark Mode Checklist
+- [ ] All backgrounds have dark variants
+- [ ] Text colors maintain sufficient contrast (WCAG AA minimum)
+- [ ] Borders are visible but subtle in dark mode
+- [ ] Shadows may need reduction or border emphasis
+- [ ] Images/photos may need slight opacity reduction (`dark:opacity-90`)
+- [ ] Form inputs have dark backgrounds with proper contrast
+
+---
+
+## Accessibility Guidelines
+
+### Color Contrast
+- **Body Text**: Minimum 4.5:1 contrast ratio (WCAG AA)
+- **Large Text (18px+)**: Minimum 3:1 contrast ratio
+- **Interactive Elements**: Clear focus states with `focus:ring-2 focus:ring-primary/50`
+
+### Keyboard Navigation
+```html
+<!-- Always include focus styles -->
+<button class="hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary/50">
+
+<!-- Skip link for screen readers -->
+<a href="#main-content" class="sr-only focus:not-sr-only">Skip to main content</a>
+```
+
+### ARIA & Semantic HTML
+- Use semantic HTML (`<nav>`, `<main>`, `<article>`, `<aside>`)
+- Add ARIA labels for icon-only buttons: `aria-label="Close dialog"`
+- Use `role` attributes when semantic HTML isn't available
+- Ensure form inputs have associated `<label>` elements
+
+### Motion & Animation
+Consider users with `prefers-reduced-motion`:
+```css
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+---
+
+## Component Library Recommendations
+
+When building reusable Vue components, follow these patterns:
+
+### Component Naming
+```
+Base<ComponentName>.vue       // Base UI components (BaseButton, BaseInput)
+App<ComponentName>.vue        // App-specific composites (AppHeader, AppSidebar)
+The<ComponentName>.vue        // Single-use components (TheFooter)
+```
+
+### Prop Patterns
+```javascript
+// Button variant prop
+props: {
+  variant: {
+    type: String,
+    default: 'primary',
+    validator: (value) => ['primary', 'secondary', 'outline', 'text'].includes(value)
+  },
+  size: {
+    type: String,
+    default: 'md',
+    validator: (value) => ['sm', 'md', 'lg'].includes(value)
+  }
+}
+```
+
+### Composable Classes
+Create utility functions for dynamic classes:
+```javascript
+const buttonClasses = computed(() => {
+  const base = 'rounded-lg font-bold transition-colors'
+  const variants = {
+    primary: 'bg-primary text-white hover:bg-primary/90',
+    secondary: 'bg-gray-100 dark:bg-gray-800 text-text-main dark:text-white'
+  }
+  return `${base} ${variants[props.variant]}`
+})
+```
+
+---
+
+## Performance Optimization
+
+### Image Optimization
+```html
+<!-- Use appropriate formats and lazy loading -->
+<img 
+  src="image.webp" 
+  loading="lazy"
+  class="w-full h-auto object-cover"
+  alt="Descriptive text"
+/>
+
+<!-- Background images for decorative content -->
+<div 
+  class="bg-cover bg-center"
+  style="background-image: url('...')"
+  data-alt="Description for context"
+>
+```
+
+### CSS Best Practices
+1. **Minimize custom CSS**: Leverage Tailwind utilities
+2. **Purge unused styles**: Ensure PurgeCSS/Tailwind purge is configured
+3. **Avoid `@apply` in production**: Use utilities directly in templates
+4. **Limit backdrop-blur**: Can be performance-intensive on older devices
+
+### Loading States
+```html
+<!-- Skeleton loaders -->
+<div class="animate-pulse space-y-4">
+  <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+  <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+</div>
+```
+
+---
+
+## Code Examples & Templates
+
+### Full Page Layout Template
+```html
+<div class="flex h-screen w-full overflow-hidden">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-surface-light dark:bg-surface-dark border-r border-gray-200 dark:border-gray-800 hidden md:flex">
+    <!-- Sidebar content -->
+  </aside>
+  
+  <!-- Main Content -->
+  <main class="flex-1 h-full overflow-y-auto bg-background-light dark:bg-background-dark">
+    <!-- Mobile Header -->
+    <div class="md:hidden flex items-center justify-between p-4 bg-surface-light dark:bg-surface-dark border-b">
+      <!-- Mobile nav -->
+    </div>
+    
+    <!-- Page Content -->
+    <div class="max-w-7xl mx-auto p-4 md:p-8 space-y-8">
+      <!-- Content sections -->
+    </div>
+  </main>
+</div>
+```
+
+### Card Grid Layout
+```html
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6">
+    <!-- Card content -->
+  </div>
+</div>
+```
+
+### Modal Template
+```html
+<div class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+  <div class="bg-surface-light dark:bg-surface-dark rounded-xl max-w-md w-full p-6 shadow-lg">
+    <!-- Modal header -->
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-xl font-bold">Modal Title</h2>
+      <button class="text-gray-400 hover:text-gray-600">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <!-- Modal content -->
+    <div class="mb-6">
+      <!-- Content -->
+    </div>
+    <!-- Modal actions -->
+    <div class="flex gap-3 justify-end">
+      <button class="px-4 py-2 text-sm font-semibold text-gray-600 hover:text-gray-800">Cancel</button>
+      <button class="px-6 py-2 bg-primary text-white rounded-lg font-bold hover:bg-primary/90">Confirm</button>
+    </div>
+  </div>
+</div>
+```
+
+---
+
+## Quality Checklist
+
+Before committing any UI component, verify:
+
+- [ ] **Responsive**: Works on mobile (375px), tablet (768px), desktop (1280px+)
+- [ ] **Dark Mode**: All states visible and accessible in dark theme
+- [ ] **Hover States**: Interactive elements have clear hover/focus indicators
+- [ ] **Loading States**: Skeleton loaders or spinners for async content
+- [ ] **Empty States**: Helpful messaging when no data exists
+- [ ] **Error States**: Clear error messages with recovery actions
+- [ ] **Accessibility**: Keyboard navigable, proper ARIA labels, sufficient contrast
+- [ ] **Typography**: Consistent with scale (no arbitrary sizes)
+- [ ] **Spacing**: Uses spacing scale (no magic numbers)
+- [ ] **Colors**: Only uses defined color palette
+- [ ] **Icons**: Material Symbols from approved set
+- [ ] **Transitions**: Smooth, purposeful animations (200-300ms)
+
+---
+
+## Quick Reference: CSS Variable Summary
+
+```css
+/* Primary */
+--primary: #1e6d8a
+--primary-dark: #16556b
+
+/* Backgrounds */
+--bg-light: #f6f7f8
+--bg-dark: #121c20
+--surface-light: #ffffff
+--surface-dark: #1a262b
+
+/* Text */
+--text-main-light: #0f171a
+--text-main-dark: #eef2f4
+--text-secondary-light: #558191
+--text-secondary-dark: #8daab5
+
+/* Borders */
+--border-light: #e9eff2
+--border-dark: #2a3b45
+
+/* Accent */
+--accent: #f97316
+```
+
+---
+
+**Document Version**: 1.0  
+**Last Updated**: December 18, 2024  
+**Maintainer**: SponsorReel Design Team
+
+---
+
+*This document should be the single source of truth for all styling decisions. When in doubt, reference this guide or the existing HTML templates in `/docs/`.*
