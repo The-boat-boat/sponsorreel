@@ -6,7 +6,21 @@ This file tracks all significant changes and progress made to the SponsorReel pr
 
 ## December 18, 2025
 
-### Added - Supabase Integration
+### Added - Automated Database Seeding
+
+- **Automated Migration Script**
+  - Created `seed_migration.sql` - fully automated seed script that creates auth users and seeds all data
+  - Automatically creates 8 auth users (1 operator + 7 sponsors) with bcrypt password hashing
+  - Uses `pgcrypto` extension for secure password hashing
+  - All users created with default password `Password123!` (can be changed after login)
+  - Idempotent design - can be run multiple times safely
+  - No manual user creation required in Supabase Dashboard
+
+- **Database Seeding**
+  - Created `seed.sql` with comprehensive mock data (operators, sponsors, events, tiers, demographics)
+  - Implemented variable-based UUID mapping for Supabase Auth integration
+  - Added sample activity logs, applications, and payments for a realistic initial state
+  - Updated `SEED_DATA.md` with instructions for both automated and manual seeding methods
 
 - **Supabase Project Setup**
   - Created new Supabase project "SponsorReel" in EU (Ireland) region
